@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 648" role="img" aria-labelledby="title desc">
+  <title id="title">分层微服务架构模板</title>
+  <desc id="desc">四层带布局：客户端层、接入层（API 网关）、业务服务层（用户/订单/支付服务）、数据层（各服务专属数据库），含语义色与线型图例。</desc>
+
+  <style>
+    .compute { fill:#DBEAFE; stroke:#2563EB; stroke-width:1.5; }
+    .data    { fill:#DCFCE7; stroke:#16A34A; stroke-width:1.5; }
+    .external{ fill:#FFEDD5; stroke:#EA580C; stroke-width:1.5; }
+    .infra   { fill:#F3F4F6; stroke:#4B5563; stroke-width:1.5; }
+    .security{ fill:#FEE2E2; stroke:#DC2626; stroke-width:1.5; }
+    .obs     { fill:#EDE9FE; stroke:#7C3AED; stroke-width:1.5; }
+    .cyl-top { fill:#DCFCE7; stroke:#16A34A; stroke-width:1.5; }
+    .band    { fill:#F8FAFC; stroke:#CBD5E1; stroke-width:1; stroke-dasharray:6 4; }
+    .canvas  { fill:#FFFFFF; }
+    .t-heading{ font:bold 18px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1E293B; }
+    .t-title { font:bold 14px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1E293B; text-anchor:middle; }
+    .t-sub   { font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#64748B; text-anchor:middle; }
+    .band-label{ font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#64748B; }
+    .legend-text{ font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#475569; }
+    .conn     { stroke:#64748B; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+    .conn-async{ stroke:#64748B; stroke-width:1.8; fill:none; stroke-dasharray:6 4; marker-end:url(#arrow); }
+    .conn-ctrl { stroke:#64748B; stroke-width:1.8; fill:none; stroke-dasharray:2 4; marker-end:url(#arrow); }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect class="canvas" x="0" y="0" width="920" height="648"/>
+  <text class="t-heading" x="40" y="38">微服务分层架构（模板）</text>
+
+  <!-- 层带 / Bands -->
+  <rect class="band" x="40" y="58"  width="840" height="92"  rx="10"/>
+  <text class="band-label" x="52" y="76">客户端层 Client</text>
+  <rect class="band" x="40" y="166" width="840" height="92"  rx="10"/>
+  <text class="band-label" x="52" y="184">接入层 Gateway</text>
+  <rect class="band" x="40" y="274" width="840" height="162" rx="10"/>
+  <text class="band-label" x="52" y="292">业务服务层 Services</text>
+  <rect class="band" x="40" y="452" width="840" height="118" rx="10"/>
+  <text class="band-label" x="52" y="470">数据层 Data</text>
+
+  <!-- 客户端 / Client -->
+  <g>
+    <rect class="compute" x="380" y="84" width="160" height="52" rx="8"/>
+    <text class="t-title" x="460" y="106">客户端</text>
+    <text class="t-sub"   x="460" y="124">Web / App</text>
+  </g>
+
+  <!-- API 网关 / Gateway -->
+  <g>
+    <rect class="infra" x="370" y="192" width="180" height="52" rx="8"/>
+    <text class="t-title" x="460" y="214">API 网关</text>
+    <text class="t-sub"   x="460" y="232">鉴权 · 路由 · 限流</text>
+  </g>
+
+  <!-- 业务服务 / Services -->
+  <g>
+    <rect class="compute" x="120" y="312" width="200" height="72" rx="8"/>
+    <text class="t-title" x="220" y="342">用户服务</text>
+    <text class="t-sub"   x="220" y="364">认证 · 资料</text>
+  </g>
+  <g>
+    <rect class="compute" x="360" y="312" width="200" height="72" rx="8"/>
+    <text class="t-title" x="460" y="342">订单服务</text>
+    <text class="t-sub"   x="460" y="364">下单 · 履约</text>
+  </g>
+  <g>
+    <rect class="compute" x="600" y="312" width="200" height="72" rx="8"/>
+    <text class="t-title" x="700" y="342">支付服务</text>
+    <text class="t-sub"   x="700" y="364">支付 · 退款</text>
+  </g>
+
+  <!-- 数据库（圆柱）/ Databases -->
+  <g>
+    <path class="data" d="M 160 491 v 39 a 60 13 0 0 0 120 0 v -39"/>
+    <ellipse class="cyl-top" cx="220" cy="491" rx="60" ry="13"/>
+    <text class="t-title" x="220" y="521">用户库</text>
+  </g>
+  <g>
+    <path class="data" d="M 400 491 v 39 a 60 13 0 0 0 120 0 v -39"/>
+    <ellipse class="cyl-top" cx="460" cy="491" rx="60" ry="13"/>
+    <text class="t-title" x="460" y="521">订单库</text>
+  </g>
+  <g>
+    <path class="data" d="M 640 491 v 39 a 60 13 0 0 0 120 0 v -39"/>
+    <ellipse class="cyl-top" cx="700" cy="491" rx="60" ry="13"/>
+    <text class="t-title" x="700" y="521">支付库</text>
+  </g>
+
+  <!-- 连接 / Connections -->
+  <path class="conn" d="M 460 136 V 188"/>
+  <path class="conn" d="M 460 244 V 290 H 220 V 308"/>
+  <path class="conn" d="M 460 244 V 308"/>
+  <path class="conn" d="M 460 244 V 290 H 700 V 308"/>
+  <path class="conn" d="M 220 384 V 474"/>
+  <path class="conn" d="M 460 384 V 474"/>
+  <path class="conn" d="M 700 384 V 474"/>
+
+  <!-- 图例：语义色 / Legend: semantic colors -->
+  <rect class="compute" x="40" y="592" width="14" height="14" rx="3"/>
+  <text class="legend-text" x="60" y="603">计算 / API</text>
+  <rect class="data"    x="170" y="592" width="14" height="14" rx="3"/>
+  <text class="legend-text" x="190" y="603">数据 / 存储</text>
+  <rect class="external" x="300" y="592" width="14" height="14" rx="3"/>
+  <text class="legend-text" x="320" y="603">外部 / 三方</text>
+  <rect class="infra"   x="430" y="592" width="14" height="14" rx="3"/>
+  <text class="legend-text" x="450" y="603">基础设施</text>
+  <rect class="security" x="560" y="592" width="14" height="14" rx="3"/>
+  <text class="legend-text" x="580" y="603">安全</text>
+  <rect class="obs"     x="660" y="592" width="14" height="14" rx="3"/>
+  <text class="legend-text" x="680" y="603">可观测</text>
+
+  <!-- 图例：线型 / Legend: line types -->
+  <line class="conn"      x1="40"  y1="624" x2="78"  y2="624"/>
+  <text class="legend-text" x="86"  y="628">同步调用</text>
+  <line class="conn-async" x1="170" y1="624" x2="208" y2="624"/>
+  <text class="legend-text" x="216" y="628">异步 / 事件</text>
+  <line class="conn-ctrl"  x1="300" y1="624" x2="338" y2="624"/>
+  <text class="legend-text" x="346" y="628">控制流</text>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 384" role="img" aria-labelledby="title desc">
+  <title id="title">数据管道模板</title>
+  <desc id="desc">左到右主流水线：数据源、采集、处理、存储、服务层，服务层向下扇出两个消费方，三个中游阶段向底部可观测性组件发送旁路遥测（虚线）。</desc>
+
+  <style>
+    .compute { fill:#DBEAFE; stroke:#2563EB; stroke-width:1.5; }
+    .data    { fill:#DCFCE7; stroke:#16A34A; stroke-width:1.5; }
+    .external{ fill:#FFEDD5; stroke:#EA580C; stroke-width:1.5; }
+    .obs     { fill:#EDE9FE; stroke:#7C3AED; stroke-width:1.5; }
+    .canvas  { fill:#FFFFFF; }
+    .t-heading{ font:bold 18px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1E293B; }
+    .t-title { font:bold 14px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1E293B; text-anchor:middle; }
+    .t-sub   { font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#64748B; text-anchor:middle; }
+    .t-label { font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#334155; text-anchor:middle; }
+    .conn     { stroke:#64748B; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+    .conn-async{ stroke:#64748B; stroke-width:1.8; fill:none; stroke-dasharray:6 4; marker-end:url(#arrow); }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect class="canvas" x="0" y="0" width="960" height="384"/>
+  <text class="t-heading" x="40" y="34">数据管道（模板）</text>
+
+  <!-- 主流水线 / Main pipeline -->
+  <g>
+    <rect class="external" x="50"  y="96" width="140" height="58" rx="8"/>
+    <text class="t-title" x="120" y="120">数据源</text>
+    <text class="t-sub"   x="120" y="138">API · 日志 · DB</text>
+  </g>
+  <g>
+    <rect class="compute" x="230" y="96" width="140" height="58" rx="8"/>
+    <text class="t-title" x="300" y="120">采集</text>
+    <text class="t-sub"   x="300" y="138">抓取 · 订阅</text>
+  </g>
+  <g>
+    <rect class="compute" x="410" y="96" width="140" height="58" rx="8"/>
+    <text class="t-title" x="480" y="120">处理</text>
+    <text class="t-sub"   x="480" y="138">清洗 · 转换</text>
+  </g>
+  <g>
+    <rect class="data"    x="590" y="96" width="140" height="58" rx="8"/>
+    <text class="t-title" x="660" y="120">存储</text>
+    <text class="t-sub"   x="660" y="138">对象存储 · 数仓</text>
+  </g>
+  <g>
+    <rect class="compute" x="770" y="96" width="140" height="58" rx="8"/>
+    <text class="t-title" x="840" y="120">服务层</text>
+    <text class="t-sub"   x="840" y="138">API · 看板</text>
+  </g>
+
+  <!-- 主流连接 / Flow edges -->
+  <text class="t-label" x="208" y="117">拉取</text>
+  <line class="conn" x1="190" y1="125" x2="226" y2="125"/>
+  <text class="t-label" x="388" y="117">ETL</text>
+  <line class="conn" x1="370" y1="125" x2="406" y2="125"/>
+  <text class="t-label" x="568" y="117">写入</text>
+  <line class="conn" x1="550" y1="125" x2="586" y2="125"/>
+  <text class="t-label" x="748" y="117">查询</text>
+  <line class="conn" x1="730" y1="125" x2="766" y2="125"/>
+
+  <!-- 消费方 / Consumers -->
+  <text class="t-label" x="770" y="176">查询</text>
+  <path class="conn" d="M 840 154 V 182 H 700 V 212"/>
+  <path class="conn" d="M 840 154 V 182 H 870 V 212"/>
+  <g>
+    <rect class="compute" x="630" y="216" width="140" height="52" rx="8"/>
+    <text class="t-title" x="700" y="238">报表看板</text>
+    <text class="t-sub"   x="700" y="256">BI · 可视化</text>
+  </g>
+  <g>
+    <rect class="compute" x="800" y="216" width="140" height="52" rx="8"/>
+    <text class="t-title" x="870" y="238">推荐系统</text>
+    <text class="t-sub"   x="870" y="256">特征 · 模型</text>
+  </g>
+
+  <!-- 可观测旁路 / Observability sidecar（肘部走 y=196 空白带，避开消费方框） -->
+  <path class="conn-async" d="M 300 154 V 196 H 420 V 302"/>
+  <path class="conn-async" d="M 480 154 V 302"/>
+  <path class="conn-async" d="M 660 154 V 196 H 540 V 302"/>
+  <g>
+    <rect class="obs" x="380" y="306" width="200" height="48" rx="8"/>
+    <text class="t-title" x="480" y="326">可观测性</text>
+    <text class="t-sub"   x="480" y="344">日志 · 指标 · 告警</text>
+  </g>
+</svg>

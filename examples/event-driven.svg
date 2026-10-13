@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">事件驱动架构示例：订单事件流</title>
+  <desc id="desc">订单服务向 Kafka 消息总线发布 order.created 事件，通知与分析两个消费者订阅消费，事件同时落入事件存储，支持回放重建读模型。全部为虚线异步语义。</desc>
+
+  <style>
+    .compute { fill:#DBEAFE; stroke:#2563EB; stroke-width:1.5; }
+    .data    { fill:#DCFCE7; stroke:#16A34A; stroke-width:1.5; }
+    .infra   { fill:#F3F4F6; stroke:#4B5563; stroke-width:1.5; }
+    .canvas  { fill:#FFFFFF; }
+    .t-heading{ font:bold 18px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1E293B; }
+    .t-title { font:bold 14px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1E293B; text-anchor:middle; }
+    .t-sub   { font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#64748B; text-anchor:middle; }
+    .t-label { font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#334155; text-anchor:middle; }
+    .t-label-start{ font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#334155; }
+    .t-note  { font:12px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; fill:#64748B; text-anchor:middle; }
+    .conn     { stroke:#64748B; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+    .conn-async{ stroke:#64748B; stroke-width:1.8; fill:none; stroke-dasharray:6 4; marker-end:url(#arrow); }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect class="canvas" x="0" y="0" width="900" height="430"/>
+  <text class="t-heading" x="40" y="34">事件驱动架构（示例：订单事件流）</text>
+
+  <!-- 生产者 / Producer -->
+  <g>
+    <rect class="compute" x="90" y="120" width="160" height="60" rx="8"/>
+    <text class="t-title" x="170" y="146">订单服务</text>
+    <text class="t-sub"   x="170" y="166">生产者 Producer</text>
+  </g>
+
+  <!-- 消息总线 / Message bus -->
+  <g>
+    <rect class="infra" x="360" y="118" width="180" height="64" rx="8"/>
+    <text class="t-title" x="450" y="146">消息总线</text>
+    <text class="t-sub"   x="450" y="166">Kafka · topic: orders</text>
+  </g>
+
+  <!-- 消费者 / Consumers -->
+  <g>
+    <rect class="compute" x="660" y="62" width="160" height="56" rx="8"/>
+    <text class="t-title" x="740" y="86">通知服务</text>
+    <text class="t-sub"   x="740" y="106">消费者</text>
+  </g>
+  <g>
+    <rect class="compute" x="660" y="182" width="160" height="56" rx="8"/>
+    <text class="t-title" x="740" y="206">分析服务</text>
+    <text class="t-sub"   x="740" y="226">消费者</text>
+  </g>
+
+  <!-- 事件存储 / Event store -->
+  <g>
+    <rect class="data" x="360" y="302" width="180" height="56" rx="8"/>
+    <text class="t-title" x="450" y="326">事件存储</text>
+    <text class="t-sub"   x="450" y="346">append-only 流水</text>
+  </g>
+
+  <!-- 连接 / Edges -->
+  <text class="t-label" x="303" y="142">publish</text>
+  <line class="conn-async" x1="250" y1="150" x2="356" y2="150"/>
+
+  <text class="t-label" x="628" y="82">consume</text>
+  <path class="conn-async" d="M 540 136 H 600 V 90 H 656"/>
+
+  <text class="t-label" x="628" y="226">consume</text>
+  <path class="conn-async" d="M 540 164 H 600 V 210 H 656"/>
+
+  <text class="t-label-start" x="460" y="245">append</text>
+  <path class="conn-async" d="M 450 182 V 298"/>
+
+  <text class="t-label" x="615" y="322">replay（回放）</text>
+  <path class="conn-async" d="M 540 330 H 700 V 242"/>
+
+  <!-- 说明 / Note -->
+  <text class="t-note" x="450" y="400">虚线 = 异步 / 事件语义；事件存储支持回放重建读模型</text>
+</svg>
